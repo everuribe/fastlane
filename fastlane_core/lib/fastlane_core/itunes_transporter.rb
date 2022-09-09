@@ -603,6 +603,7 @@ module FastlaneCore
       end
 
       @jwt = jwt
+      raise "API KEY IS NIL at initialize" if api_key.nil?
       @api_key = api_key
 
       if should_use_altool?(upload, use_shell_script)
@@ -693,6 +694,7 @@ module FastlaneCore
       api_key_plaseholder = nil unless @api_key.nil?
       api_key_plaseholder = { key_id: "YourKeyID", issuer_id: "YourIssuerID", key_filepath: "YourKeyFilepath" } if @api_key.nil?
 
+      raise "API KEY is nil before build_upload_command" if @api_key.nil? 
       command = @transporter_executor.build_upload_command(@user, @password, actual_dir, @provider_short_name, @jwt, platform, @api_key)
       UI.verbose(@transporter_executor.build_upload_command(@user, password_placeholder, actual_dir, @provider_short_name, jwt_placeholder, platform, api_key_plaseholder))
 
